@@ -1,0 +1,95 @@
+class node:
+  def __init__(self,data):
+    self.data=data
+    self.nextptr =None
+
+#initialization of the linked list : time complexity O(1)
+class linkedlst:
+  def __init__(self):
+    self.head =None
+
+  def insertAtBegning(self,new_data):
+    new_data = node(new_data)
+    new_data.nextptr = self.head
+    self.head = new_data
+
+# insertion at the end : O(n)
+  def insertAtEnd(self,new_data):
+    new_node = node(new_data)
+    if not self.head:
+      self.head = new_node
+      return
+
+    temp=self.head
+    while temp.nextptr:
+      temp = temp.nextptr
+    temp.nextptr = new_node
+
+# insert in between linked list : O(1)
+  def insertAfterNode(self,prev_node,new_data):
+    if prev_node is None:
+      print("Given data must be available at the linked list")
+      return
+
+    new_node = node(new_data)
+    new_node.nextptr = prev_node.nextptr
+    prev_node.nextptr = new_node
+
+# count the node : Time complexity  = O(n)
+  def countNode(self):
+    count = 0
+    temp=self.head
+    while temp:
+      count = count + 1
+      temp =temp.nextptr
+    return count
+
+
+# searching in the node
+  def searchNode(self,nodeData):
+    if self.head is None:
+      return False
+
+    temp = self.head
+    while temp:
+      if temp.data == nodeData:
+        return True
+        temp = temp.nextptr
+    return False
+
+# Deletion of the node:-
+  def deleteNode(self,pos):
+    temp = self.head
+    for i in range(pos-1):
+      pass
+
+  # printing the linked list:-
+  def printLL(self):
+    temp = self.head
+
+    while temp:
+      print(str(temp.data) + " " ,end =" ")
+      temp =temp.nextptr
+
+# driver code
+llist = linkedlst() # object creation - 'llist'
+
+llist.insertAtBegning(10)
+llist.insertAtBegning(80)
+llist.insertAtBegning(90)
+
+llist.insertAtEnd(113)
+llist.insertAtEnd(114)
+
+llist.insertAfterNode(llist.head.nextptr.nextptr ,30)
+
+result =llist.countNode()
+
+nodeData =90
+if llist.searchNode(nodeData):
+  print(f"The node {nodeData} is available")
+else:
+  print(f"The node {nodeData} is not available")
+
+print("The count of the nodes is:- ",result)
+llist.printLL()
