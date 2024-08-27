@@ -1,0 +1,33 @@
+def jobScheduling(profit, deadlines, max_deadline):
+    # Create a list of jobs with profit and deadlines zipped together
+    jobs = list(zip(profit, deadlines))
+    
+    # Sort jobs by profit in descending order
+    jobs.sort(key=lambda x: x[0], reverse=True)
+    
+    # Initialize the job list with None values
+    job_lst = [None] * max_deadline
+    
+    # Initialize the maximum profit
+    max_profit = 0
+    
+    # Iterate over the sorted jobs
+    for p, d in jobs:
+        # Find a slot for this job, starting from the minimum of d-1 and max_deadline-1
+        for j in range(min(d, max_deadline) - 1, -1, -1):
+            if job_lst[j] is None:
+                job_lst[j] = p
+                max_profit += p
+                break
+    
+    return max_profit, job_lst
+
+# Driver code
+profit = [55, 65, 75, 60, 70, 50, 85, 68, 45]
+deadlines = [5, 2, 7, 3, 2, 1, 4, 5, 3]
+max_deadline = 7
+
+# Calling the function and printing the result
+max_profit, scheduled_jobs = jobScheduling(profit, deadlines, max_deadline)
+print("The list of scheduled jobs (by profit) is:", scheduled_jobs)
+print("The maximum profit is:", max_profit)
